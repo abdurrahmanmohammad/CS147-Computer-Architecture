@@ -1,0 +1,22 @@
+@0001000
+08001002	// jmp 0X0001002;
+00000000	// nop (this should be skipped. The next line is address 2. The address is 0X0001002 because PC startup value is 0X0001000)
+0c001005	// jal 0X0001005;
+00000000	// nop - should be skipped
+00000000	// nop - shoud be skipped
+21000123	// addi r[08], r[00], 0X0123;	r[0] = r[8] + 0123 (sign extend) = 00000123
+6c000000	// push;			*M[03ffffff] = ffff89ab (***Should be in mem dump file***)
+21004567	// addi r[08], r[00], 0X4567;	r[0] = r[8] + 4567 (sign extend) = 00004567
+6c000000	// push;			*M[03fffffe] = ffff89ab (***Should be in mem dump file***)
+210089ab	// addi r[08], r[00], 0X89ab;	r[0] = r[8] + 89ab (sign extend) = ffff89ab
+6c000000	// push;			*M[03fffffd] = ffff89ab (***Should be in mem dump file***)
+2100cdef	// addi r[08], r[00], 0Xcdef;	r[0] = r[8] + cdef (sign extend) = ffffcdef
+6c000000	// push;			*M[03fffffc] = ffffcdef (***Should be in mem dump file***)
+70000000	// pop;				r[0] = ffffcdef
+20010000	// addi r[00], r[01], 0X0000;	*r[1] = r[0] + ffffcdef = ffffcdef (***Should be in reg dump file***)
+70000000	// pop;				r[0] = ffff89ab
+20020000	// addi r[00], r[02], 0X0000;	*r[2] = r[0] + 0 = ffff89ab (***Should be in reg dump file***)
+70000000	// pop;				r[0] = 00004567
+20030000	// addi r[00], r[03], 0X0000;	*r[3] = r[0] + 0 = 00004567 (***Should be in reg dump file***)
+70000000	// pop;				r[0] = 00000123
+20040000	// addi r[00], r[04], 0X0000;	*r[4] = r[0] + 0 = 00000123 (***Should be in reg dump file***)

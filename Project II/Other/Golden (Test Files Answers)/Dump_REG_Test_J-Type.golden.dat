@@ -1,0 +1,20 @@
+// memory data file (do not edit the following line - required for mem load use)
+// instance=/DA_VINCI_TB/da_vinci_inst/processor_inst/rf_inst/REGISTERS
+// format=hex addressradix=h dataradix=h version=1.0 wordsperline=1 noaddress
+// !!! This is the solution for the REGISTERS, NOT MEMORY
+xxxxxxxx
+ffffcdef
+ffff89ab
+00004567
+00000123
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000

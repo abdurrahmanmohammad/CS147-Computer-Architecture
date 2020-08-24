@@ -1,0 +1,37 @@
+@0001000
+3C000200 //		lui  r[0], 0x0200;		r[0] = mem_address = 0x02000000
+6c000000 //		push;				push mem_address to save it
+206300FF //		addi r[3], r[3], 0x00ff;	r[3] = 0x00ff
+2860FFFF //		slti r[0], r[3], 0xffff;	r[0] = 1
+00200822 //		sub  r[1], r[1], r[0];		r[1] = 0xffffffff
+0020F022 //		sub  r[30], r[1], r[0];		r[30] = 0xfffffffe
+2000000F //		addi r[0], r[0], 0x000F;	r[0] = 0x0010
+00C03022 //		sub r[6], r[6], r[0];		r[6] = 0xfffffff0
+00A6E827 //		nor  r[29], r[5], r[6];		r[29] = 0x000f
+00A1E025 //		or   r[28], r[5], r[1];		r[28] = 0xffffffff
+70000000 //      	pop;				r[0] = mem_address = 0x02000000
+AC1E0000 // 		sw   r[30], r[0], 0x0000;	Mem[02000000] = 0xfffffffe
+AC1D0001 //		sw   r[29], r[0], 0x0001;	Mem[02000001] = 0x000f
+AC1C0002 // 		sw   r[28], r[0], 0x0002;	Mem[02000002] = 0xffffffff
+20E70002 // 		addi r[7], r[7], 0x0002;	r[7] = 0x0002
+20420006 //		addi r[2], r[2], 0x0006;	r[2] = 0x0006
+00E2102C //		mul  r[2], r[7], r[2];		r[2] = 0x000c
+3C1B0200 //		lui  r[27], 0x0200;		r[27] = mem_address = 0x02000000
+AF620003 // 		sw   r[2], r[27], 0x0003;	Mem[02000003] = 0x000c
+08001017 //		jmp  A1;
+AF7E0004 // 		sw   r[30], r[27], 0x0004;	Mem[02000004] = 0xfffffffe
+AF7E0005 // 		sw   r[30], r[27], 0x0005;	Mem[02000005] = 0xfffffffe
+AF7E0006 // 		sw   r[30], r[27], 0x0006;	Mem[02000006] = 0xfffffffe
+AF7E0007 // A1:		sw   r[30], r[27], 0x0007;	Mem[02000007] = 0xfffffffe
+30210000 //		andi r[1], r[1], 0x0000;	r[1] = 0x0000
+00221024 //		and r[2], r[1], r[2];		r[2] = 0x0000
+34420001 //		ori r[2], r[2], 0x0001;		r[2] = 0x0001
+00400A01 //		sll r[1], r[2], 0x0008;		r[1] = 0x0100
+00220820 //		add r[1], r[1], r[2];		r[1] = 0x0101
+00201102 //		srl r[2], r[1], 0x0004;		r[2] = 0x0010
+8F630001 //		lw r[3], r[27], 0x0001;		r[3] = 0x000e
+0043202A //		slt r[4], r[2], r[3];		r[4] = 0
+0041282A //		slt r[5], r[2], r[1];		r[5] = 1
+14850001 //		bne r[4], r[5], 0x1023;		if (r[2]>=r[3] and r[2]<r[1]): skip next line
+08001025 //		jmp end;
+00000000 // end:    	nop

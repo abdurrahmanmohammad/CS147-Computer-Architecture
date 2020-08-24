@@ -1,0 +1,14 @@
+@0001000
+// r[0] = xxxxxxxx since it is not modified. Lines with '*' have their result included in the register dump file.
+20210002	// addi r[01], r[01], 0X0002;	*r1 = r1 + 2 = 2 = 00000002 
+74220005	// muli r[01], r[02], 0X0005;	*r2 = r1 * 5 = 10 = 0000000a
+30230007	// andi r[01], r[03], 0X0007;	*r3 = r2 & 7 = b1010 & b0010 = b0010 = 2 = 00000002
+3444000d	// ori r[02], r[04], 0X000d;	*r4 = r2 | 13 = b0010 | 1101 = 1111 = f = 0000000f 
+3c050f01	// lui r[05], 0X0f01;		*r5 = {h0f01, 16'b0} = h 0f01 0000 = 0f010000
+2846000c	// slti r[02], r[06], 0X000c;	*r6 = (r2 < 12)?1:0 = 1 = 00000001
+10230001	// beq r[01], r[03], 0X0001;	if(r1==r3):PC=PC+1+BranchAddress --> if(2==2):PC=PC+1+1 (Should skip next instruction)
+00000000	// nop - This instruction should not be done and should not be in your ModelSim output
+14430001	// bne r[02], r[03], 0X0001;	if(r2!=r3):PC=PC+1+BranchAddress --> if(10!=2):PC=PC+1+1 (Should skip next instruction)
+00000000	// nop - This instruction should not be done and should not be in your ModelSim output
+ac220003	// sw r[01], r[02], 0X0003;	M[r1+3] = r2 --> M[2+3] = 10 --> M[5] = 10 = 0000000a
+8c270003	// lw r[01], r[07], 0X0003;	*r7 = M[r1+3] --> r7 = M[2+3] --> r7 = M[5] --> r7 = 10 = 0000000a (from step above)
